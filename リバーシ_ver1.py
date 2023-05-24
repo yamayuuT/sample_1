@@ -76,15 +76,15 @@ class ReversiBoard:
 
     def check_end_game(self):
         black_stones, white_stones = self.count_stone()
-        message = "Game Over. "
+        message = "Game Over"
         if black_stones > white_stones:
-            message += "Black wins!"
+            message += "黒石の勝ち"
         elif white_stones > black_stones:
-            message += "White wins!"
+            message += "白石の勝ち"
         else:
-            message += "It's a draw!"
+            message += "引き分け"
         messagebox.showinfo("Game Over", message)
-        self.parent.after(1000, self.parent.destroy)
+        self.parent.after(4000, self.parent.destroy)
 
 if __name__ == "__main__":
     root = tk.Tk()
