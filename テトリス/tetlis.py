@@ -303,7 +303,9 @@ def exceeds_bottom(piece, grid):
     return True  
 
 
-
+#処理部分
+#ハードドロップ処理
+#スペースキー一回につき、ミノ一つ落下
 def main():
     locked_positions = {}
     grid = create_grid(locked_positions)
@@ -341,7 +343,8 @@ def main():
                 run = False
                 pygame.display.quit()
                 quit()
-
+                
+            #キー設定
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
                     current_piece.x -= 1
