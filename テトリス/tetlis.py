@@ -266,6 +266,23 @@ def draw_window(surface, grid, score=0):
     pygame.draw.rect(surface, (255, 0, 0), (top_left_x, top_left_y, play_width, play_height), 5)
 
     draw_grid(surface, grid)
+    
+    
+    
+def exceeds_bottom(piece, grid):
+    """
+    ピースが盤面の下部を超えるかどうかを判断します。
+    """
+    temp_piece = piece  # piece のコピーを作成して操作することで、元の piece を保護します。
+    while True:
+        temp_piece.y += 1
+        if not valid_space(temp_piece, grid):
+            break
+    temp_piece.y -= 1  # 最後の有効な位置に戻します。
+    if temp_piece.y > piece.y:  # 元の位置から動けた場合、まだ下に移動できます。
+        return False
+    return True  # これ以上下に移動できない場合、True を返します。
+
 
 
 def main():
@@ -296,7 +313,7 @@ def main():
         if fall_time / 1000 >= fall_speed:
             fall_time = 0
             current_piece.y += 1
-            if not (valid_space(current_piece, grid)) and current_piece.y > 0:
+            if not valid_space(current_piece, grid):
                 current_piece.y -= 1
                 change_piece = True
 
@@ -304,6 +321,7 @@ def main():
             if event.type == pygame.QUIT:
                 run = False
                 pygame.display.quit()
+                quit()
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
@@ -322,7 +340,16 @@ def main():
                         current_piece.y -= 1
 
                 elif event.key == pygame.K_UP:
-                    current_piece.rotation = current_piece.rotation + 1 % len(current_piece.shape)
+                    current_piece.rotation = (current_piece.rotation + 1) % len(current_piece.shape)
+                    if not valid_space(current_piece, grid):
+                        current_piece.rotation = (current_piece.rotation - 1) % len(current_piece.shape)
+
+            elif event.type == pygame.KEYUP:
+                if event.key == pygame.K_SPACE:
+                    while valid_space(current_piece, grid):
+                        current_piece.y += 1
+                    current_piece.y -= 1  # One step back since the last movement made the piece invalid
+                    change_piece = True
 
         shape_pos = convert_shape_format(current_piece)
 
@@ -340,23 +367,25 @@ def main():
             change_piece = False
             score += clear_rows(grid, locked_positions) * 10
 
-        draw_window(win, grid, score)
+        draw_window(win,grid)
         draw_next_shape(next_piece, win)
         pygame.display.update()
 
         if check_lost(locked_positions):
-            run = False
+            draw_text_middle(win, "YOU LOST!", 80, (255, 255, 255))
+            pygame.display.update()
+            pygame.time.delay(2000)
 
-    draw_text_middle(win, "YOU LOST!", 80, (255, 255, 255))
-    pygame.display.update()
-    pygame.time.delay(2000)
+
+
+
 
 
 def main_menu():
     run = True
     while run:
         win.fill((0, 0, 0))
-        draw_text_middle(win, 'Start play', 60, (255, 255, 255))
+        draw_text_middle(win, 'Game Start', 60, (255, 255, 255))
         pygame.display.update()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
