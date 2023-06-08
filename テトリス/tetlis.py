@@ -1,7 +1,10 @@
 import pygame
 import random
 
-pygame.font.init()  # フォントモジュールを初期化
+pygame.font.init()  # pygameのフォントモジュールを初期化
+
+# 各種定数（画面サイズ等）を設定
+# テトリミノ（ゲームブロック）の形状を定義
 
 s_width = 800
 s_height = 750
@@ -11,6 +14,8 @@ block_size = 30
 
 top_left_x = (s_width - play_width) // 2
 top_left_y = s_height - play_height
+
+
 
 # SHAPE FORMATS
 S = [['.....',
@@ -115,23 +120,27 @@ T = [['.....',
       '..0..',
       '.....']]
 
-# index represents the shape
+
+
+# 各テトリミノの形状を定義
+# indexは形状
 shapes = [S, Z, I, O, J, L, T]
 shape_colors = [(0, 255, 0), (255, 0, 0), (0, 255, 255), (255, 255, 0), (255, 165, 0), (0, 0, 255), (128, 0, 128)]
 
 
-# class representing a piece
 
 
-class Piece(object):
+class Piece(object):  # テトリミノを表すクラス
     def __init__(self, column, row, shape):
-        self.x = column
-        self.y = row
-        self.shape = shape
-        self.color = shape_colors[shapes.index(shape)]
-        self.rotation = 0
+        self.x = column  # テトリミノの位置（列）
+        self.y = row  # テトリミノの位置（行）
+        self.shape = shape  # テトリミノの形状
+        self.color = shape_colors[shapes.index(shape)]  # テトリミノの色
+        self.rotation = 0  # テトリミノの回転
 
 
+
+# テトリスのボード（盤面）を作成
 def create_grid(locked_positions={}):
     grid = [[(0, 0, 0) for _ in range(10)] for _ in range(20)]
 
@@ -143,6 +152,7 @@ def create_grid(locked_positions={}):
     return grid
 
 
+# ピースの形状を変換
 def convert_shape_format(piece):
     positions = []
     format = piece.shape[piece.rotation % len(piece.shape)]
@@ -159,6 +169,8 @@ def convert_shape_format(piece):
     return positions
 
 
+
+# テトリミノがボード内に存在し、他のテトリミノと衝突していないかを判断
 def valid_space(piece, grid):
     accepted_positions = [[(j, i) for j in range(10) if grid[i][j] == (0, 0, 0)] for i in range(20)]
     accepted_positions = [j for sub in accepted_positions for j in sub]
@@ -171,7 +183,7 @@ def valid_space(piece, grid):
                 return False
     return True
 
-
+# ゲームオーバー判定
 def check_lost(positions):
     for pos in positions:
         x, y = pos
@@ -180,10 +192,12 @@ def check_lost(positions):
     return False
 
 
+
+# newテトリミノ生成
 def get_shape():
     return Piece(5, 0, random.choice(shapes))
 
-
+# 中央寄せテキスト表示
 def draw_text_middle(surface, text, size, color):
     font = pygame.font.SysFont('comicsans', size, bold=True)
     label = font.render(text, 1, color)
@@ -192,6 +206,8 @@ def draw_text_middle(surface, text, size, color):
                          top_left_y + play_height / 2 - label.get_height() / 2))
 
 
+
+# グリッド描画
 def draw_grid(surface, grid):
     sx = top_left_x
     sy = top_left_y
@@ -204,6 +220,7 @@ def draw_grid(surface, grid):
                              (sx + j * block_size, sy + play_height))
 
 
+# 重なり行消去
 def clear_rows(grid, locked):
     inc = 0
     for i in range(len(grid) - 1, -1, -1):
@@ -223,7 +240,7 @@ def clear_rows(grid, locked):
 
     return inc
 
-
+# +å nextテトリミノを描画
 def draw_next_shape(shape, surface):
     font = pygame.font.SysFont('comicsans', 30)
     label = font.render('Next Shape', 1, (255, 255, 255))
@@ -242,6 +259,8 @@ def draw_next_shape(shape, surface):
     surface.blit(label, (sx + 10, sy - 30))
 
 
+
+# テトリスウィンドウ描画
 def draw_window(surface, grid, score=0):
     surface.fill((0, 0, 0))
 
@@ -273,15 +292,15 @@ def exceeds_bottom(piece, grid):
     """
     ピースが盤面の下部を超えるかどうかを判断します。
     """
-    temp_piece = piece  # piece のコピーを作成して操作することで、元の piece を保護します。
+    temp_piece = piece  # piece のコピーを作成して操作,元の piece を保護
     while True:
         temp_piece.y += 1
         if not valid_space(temp_piece, grid):
             break
-    temp_piece.y -= 1  # 最後の有効な位置に戻します。
-    if temp_piece.y > piece.y:  # 元の位置から動けた場合、まだ下に移動できます。
+    temp_piece.y -= 1  # 最後の位置
+    if temp_piece.y > piece.y:  
         return False
-    return True  # これ以上下に移動できない場合、True を返します。
+    return True  
 
 
 
@@ -380,12 +399,12 @@ def main():
 
 
 
-
+#game start
 def main_menu():
     run = True
     while run:
         win.fill((0, 0, 0))
-        draw_text_middle(win, 'Game Start', 60, (255, 255, 255))
+        draw_text_middle(win, 'Are you ready?(click enter key)', 60, (255, 255, 255))
         pygame.display.update()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
