@@ -1,0 +1,249 @@
+/*iPhoneおよび共通設定*/
+h1, h2, p {
+    font-family: heisei-maru-gothic-std, sans-serif;
+}
+
+p {
+    font-size: 12px;
+    font-weight: w4;
+    line-height: 16px;
+    color: #483E3E;
+}
+
+.container {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 100%;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 3%;
+    height: 70px;
+    background-color: #fff1ac;
+}
+
+.header h1 {
+    margin-left: 2.66%;
+    font-size: 20px;
+    font-weight: w8;
+    color: #81A238;
+    padding-top: 19px;
+}
+
+.header ul {
+    display: flex;
+    list-style-type: none;
+    width: 37.33%;
+    justify-content: space-between;
+    margin-right: 5px;
+}
+
+.header ul li {
+    margin-top: 20px;
+}
+
+.header ul a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.TopPhoto {
+    margin-bottom: 6%;
+}
+
+.TopPhoto img {
+    width: 100%;
+}
+
+.header ul a:hover {
+    color: red;
+}
+
+.main {
+    display: grid;
+}
+
+h2 {
+    width: 80%;
+    font-size: 22px;
+    font-weight: w8;
+    color: #6C4747;
+    margin: 0 0 15px 5.33%;
+}
+
+.photo {
+    margin-bottom: 20px;
+}
+
+.photo img {
+    width: 100%;
+    margin-bottom: 4px;
+}
+
+.main-text {
+    width: 84%;
+    margin: 0 auto;
+    margin-bottom: 8%;
+}
+
+.main-text .p1 {
+    border: 1px solid #000;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 30px;
+}
+
+
+.main-text .button_back {
+    width: 13.33%;
+    border: 1px solid #000;
+    border-radius: 10px;
+    text-align: center;
+    margin-left: auto;
+    margin-top: 10px;
+}
+
+
+.SNS {
+    margin-bottom: 8%;
+}
+.SNS .SNS_Logo {
+    width: 66.93%;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    padding-top: 12px;
+    border-top: 1px solid #000;
+}
+
+.SNS_Logo img {
+    width: 11.73%;
+}
+
+.footer {
+    background-color: #fff;
+}
+
+.footer .footer_title {
+    height: 25px;
+    color: #fff;
+    background-color: #B4AEAE;
+    padding-left: 8.0%;
+    padding-top: 5px;
+    margin-bottom: 20px;
+}
+
+.footer .footer_textbox {
+    margin-left: 8.0%;
+}
+
+.footer .footer_textbox p {
+    line-height: 1.7em; 
+}
+
+/*iPadの設定*/
+@media screen and (min-width: 600px){
+
+
+p {
+    font-size: 16px;
+    line-height: 23px;
+    color: #666;
+}
+
+.header {
+    margin-bottom: 3%;
+}
+
+.header h1 {
+    margin-left: 2.39%;
+    font-size: 30px;
+    padding-top: 15px;
+}
+
+.header ul {
+    width: 21.58%;
+    margin-right: 2.51%;
+}
+
+.header ul li {
+    margin-top: 30px;
+}
+
+
+.main {
+    grid-template-columns: 4.79% 1fr 4.79% 1fr 4.79%;
+    margin-bottom: 6%;
+}
+
+h2 {
+    grid-column: 2 / 5;
+    grid-row: 1;
+    margin: 0;
+    font-size: 24px;
+    font-weight: w4;
+    color: #726F6F;
+}
+
+    .main {
+        gap: 20px 0;
+    }
+    
+    .photo {
+    grid-column: 2;
+    grid-row: 2;
+    margin-bottom: 0;
+}
+
+.main-text {
+    width: 100%;
+    grid-column: 4;
+    grid-row: 2;
+    margin: 0;
+}
+
+.main-text .button_back {
+    width: 14.0%;
+}
+
+.SNS .SNS_Logo {
+    width: 35%;
+    border: none;
+}
+
+    .SNS_Logo img {
+        width: 18%;
+    }
+    
+.footer {
+    padding-bottom: 50px;
+}
+
+.footer .footer_title {
+    padding-left: 4.79%;
+}
+
+.footer .footer_textbox {
+    padding-left: 0;
+    margin-left: 4.79%;
+    display: flex;
+    width: 65.94%;
+    justify-content: space-between;
+}
+
+.footer .footer_text {
+    width: 27.57%;
+}
+
+   
+}
+
+/*PCサイズの設定*/
+@media screen and (min-width: 835px) {
+    .container {
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+}

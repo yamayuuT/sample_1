@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8"/>
+  <title>Grid Layout iPad</title>
+  <link rel="stylesheet" href="css/reset.css"/>
+  <link rel="stylesheet" href="css/style.css"/>
+
+</head>
+
+<body>
+<div class="container">
+    <header class="header">
+        <h1>日本の食文化</h1>
+        <ul>
+            <li><a href="../index.html">Top</a></li>
+            <li>Contact</li>
+        </ul>
+    </header>
+    <div class="TopPhoto">
+        <img src="images/JPfood1.jpg" alt="メインイメージ画像">
+    </div>
+    
+    <section class="contact_form">
+        <h2>お問合せ</h2>
+        <form action="contact01.cgi" method="post" encotype="text/plain" id="contact01">
+        <p class="p_label"><label>
+            <span>お名前</span><input type="text" name="name" size="40" maxlength="40"></label>
+        </p>
+        <p class="p_label"><label>
+            <span>E-mail</span><input type="text" name="Email" size="40" maxlength="40"></label>
+        </p>
+        
+        <p class="p_memo">
+            <label>
+            <p>通信欄</p>
+            <textarea name="memo" rows="12" cols="50"></textarea>
+            </label>
+        </p>
+        </form>
+        <p class="p_submit">
+            <input type="submit" value="送信する"　form="contact01">
+            <input type="reset" value="リセット" form="contact01">
+        </p>
+        <a href="../index.html"><p class="modoru">戻る</p></a>
+        
+    </section>
+    
+    
+
+    <figure class="Page_top">
+        <a href="../index.html">
+            <img src="images/PageUp.png" alt="ページトップへのボタン画像">
+        </a>
+    </figure>
+
+    
+    <figure class="SNS">
+        <figure class="SNS_Logo">
+            <img src="images/sns_1.png" alt="facebookのロゴマーク">
+            <img src="images/sns_2.png" alt="twitterのロゴマーク">
+            <img src="images/sns_3.png" alt="Lineのロゴマーク">
+            <img src="images/sns_4.png" alt="googleのロゴマーク">
+        </figure>
+    </figure>
+    <footer class="footer">
+        <p class="footer_title">このサイトの利用について</p>
+        <div class="footer_textbox">
+            <p class="footer_text">プライバシーポリシー<br>関連団体</p>
+            <p class="footer_text">情報公開について<br>著作権について</p>
+            <p class="footer_text">コピーライト<br>サイトマップ</p>
+        </div>
+    </footer>
+</div>
+    
+</body>
+</html>
