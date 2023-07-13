@@ -1,0 +1,31 @@
+Arguments: 
+  /Users/yamayuu/.nvm/versions/node/v14.21.3/bin/node /Users/yamayuu/.nvm/versions/node/v14.21.3/bin/yarnpkg add --exact react react-dom react-scripts cra-template --cwd /Users/yamayuu/system_development_1/landing-page
+
+PATH: 
+  /var/folders/bx/c2v5zbjn4bn697l3bc58stw40000gn/T/yarn--1688443032477-0.3507962082548044:/Users/yamayuu/.config/yarn/global/node_modules/.bin:/Users/yamayuu/.config/yarn/link/node_modules/.bin:/Users/yamayuu/.yarn/bin:/Users/yamayuu/.nvm/versions/node/v14.21.3/libexec/lib/node_modules/npm/bin/node-gyp-bin:/Users/yamayuu/.nvm/versions/node/v14.21.3/lib/node_modules/npm/bin/node-gyp-bin:/Users/yamayuu/.nvm/versions/node/v14.21.3/bin/node_modules/npm/bin/node-gyp-bin:/Users/yamayuu/.nvm/versions/node/v14.21.3/bin:/Users/yamayuu/opt/anaconda3/bin:/Users/yamayuu/opt/anaconda3/condabin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:~/.dotnet/tools:/Library/Apple/usr/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands
+
+Yarn version: 
+  1.22.19
+
+Node version: 
+  14.21.3
+
+Platform: 
+  darwin x64
+
+Trace: 
+  Error: incorrect data check
+      at Zlib.zlibOnError [as onerror] (zlib.js:187:17)
+
+npm manifest: 
+  {
+    "name": "landing-page",
+    "version": "0.1.0",
+    "private": true
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
