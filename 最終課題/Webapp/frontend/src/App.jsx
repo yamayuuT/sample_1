@@ -1,35 +1,53 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from 'react';
+import axios from 'axios';
+import Map from './Map';  // Import the Map component
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [cities, setCities] = useState([]);
+  const [inputCity, setInputCity] = useState("");
+  const [result, setResult] = useState(null);
+
+  const calculateRoute = async () => {
+    try {
+      const response = await axios.post('http://localhost:8080/api/calculate-route', {
+        cities: cities
+      });
+      console.log(response.data);
+      setResult(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const addCity = () => {
+    setCities(prevCities => [...prevCities, inputCity]);
+    setInputCity("");
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="App">
+      <input type="text" value={inputCity} onChange={e => setInputCity(e.target.value)} />
+      <button onClick={addCity}>Add City</button>
+      <ul>
+        {cities.map((city, index) => (
+          <li key={index}>{city}</li>
+        ))}
+      </ul>
+      <button onClick={calculateRoute}>Calculate Route</button>
+      {result && (
+        <div>
+          <p>Total Distance: {result.total_distance} km</p>
+          <p>Route:</p>
+          <ul>
+            {result.route.map((city, index) => (
+              <li key={index}>{city.city}</li>
+            ))}
+          </ul>
+          <Map route={result.route.map(city => city.coordinates)} />  {/* Use the Map component */}
+        </div>
+      )}
+    </div>
+  );
 }
 
-export default App
+export default App;
