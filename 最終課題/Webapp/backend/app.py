@@ -15,7 +15,7 @@ def calculate_route():
 
     cities = data['cities']
 
-    gmaps = Client(key='AIzaSyC_3F7w0X1qdK37ObX3PSFBgnrPgCjQWSU')
+    gmaps = Client(key='****')
 
     def calculate_distance(lat1, lon1, lat2, lon2):
         R = 6371.0
