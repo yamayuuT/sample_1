@@ -16,7 +16,13 @@ CORS(app)
 gmaps = Client(key='AIzaSyC_3F7w0X1qdK37ObX3PSFBgnrPgCjQWSU')
 
 
+<<<<<<< HEAD
 def calculate_distance(lat1, lon1, lat2, lon2):
+=======
+    gmaps = Client(key='****')
+
+    def calculate_distance(lat1, lon1, lat2, lon2):
+>>>>>>> a5b38e0e27d2a5fd4b800b4497b402d1ba46699a
         R = 6371.0
         lat1 = math.radians(lat1)
         lon1 = math.radians(lon1)
