@@ -1,0 +1,48 @@
+/* About.css */
+
+.about-container {
+    margin: 0 auto;
+    max-width: 1200px;
+    padding: 20px;
+    background-color: #f4f4f4;
+  }
+  
+  .section-title {
+    font-weight: 700;
+    color: #3f51b5; /* Change color according to your theme */
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 20px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 20px; /* make the corners more rounded */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15); /* add more shadow to the card */
+    margin-bottom: 40px;
+  }
+  
+  .card-content {
+    padding: 20px; /* add padding inside the card */
+  }
+  
+  .card-media {
+    height: 140px;
+  }
+  
+  .benefits-list {
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    padding: 20px;
+    margin-top: 20px;
+  }
+  
+  .benefits-list-item {
+    line-height: 1.6;
+  }
+  

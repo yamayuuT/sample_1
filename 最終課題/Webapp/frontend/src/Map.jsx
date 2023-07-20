@@ -1,10 +1,11 @@
 import React, { useEffect, useRef } from 'react';
+import './index.css';
 
 const Map = ({ route }) => {
   const mapRef = useRef();
 
   useEffect(() => {
-    if (!route.length || !route[0].hasOwnProperty('lat') || !route[0].hasOwnProperty('lng')) {
+    if (!route || !route.length || !route[0] || !route[0].hasOwnProperty('lat') || !route[0].hasOwnProperty('lng')) {
       console.error('Invalid route data');
       return;
     }
