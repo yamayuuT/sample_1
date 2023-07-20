@@ -10,19 +10,13 @@ from flask_socketio import SocketIO
 
 
 app = Flask(__name__)
-socketio = SocketIO(app, cors_allowed_origins="*")  # Add this line
+socketio = SocketIO(app, cors_allowed_origins="*") 
 CORS(app)
 
 gmaps = Client(key='AIzaSyC_3F7w0X1qdK37ObX3PSFBgnrPgCjQWSU')
 
 
-<<<<<<< HEAD
 def calculate_distance(lat1, lon1, lat2, lon2):
-=======
-    gmaps = Client(key='****')
-
-    def calculate_distance(lat1, lon1, lat2, lon2):
->>>>>>> a5b38e0e27d2a5fd4b800b4497b402d1ba46699a
         R = 6371.0
         lat1 = math.radians(lat1)
         lon1 = math.radians(lon1)
@@ -44,6 +38,7 @@ def calculate_route():
     cities = request.get_json()['cities']
     geocoded_cities = []
     
+    # 各都市の座標を取得
     for city in cities:
         geocode_result = gmaps.geocode(city)
         if geocode_result:
@@ -63,7 +58,7 @@ def calculate_route():
         location = geocode_result[0]['geometry']['location']
         locations.append({"city": city, "coordinates": location})
 
-    # Calculate distance matrix
+    # 距離行列を計算
     num_cities = len(cities)
     distance_matrix = np.zeros((num_cities, num_cities))
     for i in range(num_cities):
@@ -72,7 +67,7 @@ def calculate_route():
             distance_matrix[i, j] = distance
             distance_matrix[j, i] = distance
 
-    # Solve TSP using greedy method
+    # Greedy法を使ってTSPを解く
     current_city = 0
     route = [current_city]
     total_distance = 0.0
@@ -85,7 +80,7 @@ def calculate_route():
         route.append(next_city)
         current_city = next_city
 
-    # Return ordered list of cities and total distance
+    # 都市の順序リストと総距離を返す
     ordered_cities = [locations[i] for i in route]
     total_distance += distance_matrix[route[-1]][route[0]]  # Add distance back to the start city
 
@@ -105,7 +100,7 @@ def calculate_route_exact():
     cities = data['cities']
     n_cities = len(cities)
 
-    # Get the latitude and longitude of each city
+    # 各都市の緯度と経度を取得
     locations = []
     for city in cities:
         socketio.emit('progress', {'message': f'Geocoding the location {city}...'}, namespace='/api')
@@ -118,7 +113,7 @@ def calculate_route_exact():
             location = geocode_result[0]['geometry']['location']
             locations.append({"city": city, "coordinates": location})
 
-    # Calculate the distance matrix
+    # 距離行列を計算
     distance_matrix = np.zeros((n_cities, n_cities))
     for i in range(n_cities):
         for j in range(i+1, n_cities):
@@ -129,7 +124,7 @@ def calculate_route_exact():
             distance_matrix[i, j] = dist
             distance_matrix[j, i] = dist
 
-    # Define QUBO
+    # QUBOの定義
     socketio.emit('progress', {'message': 'Defining QUBO...'}, namespace='/api')
     Q_dict = {}
     for i in range(n_cities):
@@ -138,7 +133,7 @@ def calculate_route_exact():
                 for k in range(n_cities):
                     Q_dict[(n_cities * i + j, n_cities * k + j)] = distance_matrix[i][k]
 
-    # Define the constraint that each city is visited exactly once
+    # 各都市がちょうど一度だけ訪れられる 制約条件1
     for i in range(n_cities):
         for j in range(n_cities):
             for k in range(j+1, n_cities):
@@ -148,7 +143,7 @@ def calculate_route_exact():
             for k in range(i+1, n_cities):
                 Q_dict[(n_cities * i + j, n_cities * k + j)] = 2 * 1e9  # Very large number
 
-    # Add an additional constraint to the QUBO to ensure every city is visited
+    # QUBOに制約を追加
     for i in range(n_cities):
         for j in range(n_cities):
             if i != j:
@@ -156,29 +151,29 @@ def calculate_route_exact():
 
     socketio.emit('progress', {'message': f'QUBO defined. Sample size: {len(Q_dict)}'}, namespace='/api')
 
-    # Solve QUBO with SQA
+    # SQAでQUBOを解く
     socketio.emit('progress', {'message': 'Solving QUBO with SQA...'}, namespace='/api')
     sampler = SQASampler()
     response = sampler.sample_qubo(Q_dict, num_reads=5000)
 
     socketio.emit('progress', {'message': f'Solution found. Energy: {response.first.energy}'}, namespace='/api')
 
-    # Get the solution with the smallest energy
+    # コスト関数の最小値(基底)
     solution = response.first.sample
 
     # Process the solution
     try:
-        # Create a list of tuples (visit_order, city_index)
+        #タプルのリストを作成（visit_order, city_index）
         route_tuples = [(i // n_cities, i % n_cities) for i, value in solution.items() if value == 1]
-        # Sort by visit_order and keep the city indices
+        # visit_order でソートし、都市のインデックスを保持
         route_indices = [city_index for visit_order, city_index in sorted(route_tuples)]
     except Exception as e:
         return jsonify({"error": "Error while processing the solution: {}".format(str(e))}), 500
 
-    # Construct the route from the indices
+     # インデックスからルートを構築
     route = [locations[i] for i in route_indices]
 
-    # If the calculated route does not cover all cities, use the nearest-neighbor method to add remaining cities
+     # 計算されたルートがすべての都市をカバーしていない場合、最近傍メソッドを使用して残りの都市を追加(量子サンプラーだと、入力=出力にならず数が勝手に減ることがあるため)
     if len(route) < len(locations):
         remaining_locations = [loc for loc in locations if loc not in route]
         while remaining_locations:
@@ -192,7 +187,7 @@ def calculate_route_exact():
             route.append(nearest_location)
             remaining_locations.remove(nearest_location)
 
-    # Calculate the total distance
+    # total距離の計算
     total_distance = 0
     for i in range(len(route) - 1):
         total_distance += calculate_distance(
@@ -213,11 +208,6 @@ def calculate_route_exact():
         "route": [{"city": r["city"], "coordinates": r["coordinates"]} for r in route]
     })
 
-
-
-
-
-    
 
 if __name__ == '__main__':
     app.run(port=8080)

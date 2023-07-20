@@ -1,12 +1,13 @@
-// About.jsx
-
 import React from 'react';
 import { Box, Typography, Grid, List, ListItem, ListItemIcon, ListItemText, Divider, Card, CardContent, CardMedia } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import './About.css'; // CSSをインポート
+import './About.css'; 
+
+
 
 const About = () => {
     return (
+
       <Box id="about" className="about-container">
         <Typography variant="h2" gutterBottom className="section-title">
             このアプリケーションについて
@@ -15,9 +16,10 @@ const About = () => {
           <Card>
             <CardMedia
               className="card-media"
-              image="images/your_image.jpg" // Set image path accordingly
+              image="/src/images/background.jpg" 
               title="近似最適化とは？"
             />
+
             <CardContent>
               <Typography variant="h5" gutterBottom className="card-title">
                   近似最適化とは？
@@ -28,12 +30,14 @@ const About = () => {
               </Typography>
             </CardContent>
           </Card>
+
           <Card>
             <CardMedia
               className="card-media"
-              image="images/your_image.jpg" // Set image path accordingly
+              image="/src/images/image5.png" 
               title="量子サンプラーとは？"
             />
+
             <CardContent>
               <Typography variant="h5" gutterBottom className="card-title">
                   量子サンプラーとは？
@@ -44,13 +48,15 @@ const About = () => {
             </CardContent>
           </Card>
         </Box>
+
         <Box className="card-container">
           <Card>
             <CardMedia
               className="card-media"
-              image="images/your_image.jpg" // Set image path accordingly
+              image="/src/images/image2.jpg" 
               title="このアプリケーションの利点"
             />
+
             <CardContent>
               <Typography variant="h5" gutterBottom className="card-title">
                   このアプリケーションの利点
@@ -61,9 +67,11 @@ const About = () => {
             </CardContent>
           </Card>
         </Box>
+
         <Typography variant="h3" gutterBottom className="section-title">
             どんなことができるのか
         </Typography>
+
         <List className="benefits-list">
             <ListItem>
                 <ListItemIcon>

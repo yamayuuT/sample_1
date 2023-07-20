@@ -2,6 +2,8 @@ import React from 'react';
 import { Container, Typography, TextField, Button, Box } from '@mui/material';
 import styled from 'styled-components';
 
+
+
 const Section = styled.section`
   padding: 60px 0;
   text-align: center;
@@ -9,6 +11,8 @@ const Section = styled.section`
 
 const Contact = () => {
   return (
+
+
     <Section id="contact">
       <Container maxWidth="sm">
         <Typography variant="h2" gutterBottom>
@@ -47,12 +51,15 @@ const Contact = () => {
             color="primary"
             sx={{ mt: 3 }}
           >
+
             送信
           </Button>
         </Box>
       </Container>
     </Section>
+
   );
 };
+
 
 export default Contact;

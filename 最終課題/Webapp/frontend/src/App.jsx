@@ -16,6 +16,8 @@ function MainPage() {
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
 
+
+
   const calculateRoute = async () => {
     setLoading(true);
     try {
@@ -28,6 +30,7 @@ function MainPage() {
       setLoading(false);
     }
   };
+
   
   const calculateRouteExact = async () => {
     setLoading(true);
@@ -53,6 +56,8 @@ function MainPage() {
     console.error(error.config);
   };
 
+
+
   const addCity = () => {
     if (inputCity !== '') { // 入力欄が空でないときのみ都市を追加する
       setCities(prevCities => [...prevCities, inputCity]);
@@ -64,7 +69,9 @@ function MainPage() {
     window.location.reload();
   }
 
+
   return (
+
     <div>
       <HeroSection />
       <div style={{ height: '50px' }}></div> {/* Add a space */}
@@ -101,6 +108,7 @@ function MainPage() {
                   zIndex: 9999,
                 }}
               >
+                
                 <CircularProgress color="secondary" />
               </Box>
             )}
@@ -123,8 +131,12 @@ function MainPage() {
           </Grid>
         </Container>
     </div>
+
+
   );
 };
+
+
 
 function App() {
   return (
@@ -136,6 +148,8 @@ function App() {
       <Route path="/contact" element={<Contact />} />
     </Routes>
     </Router>
+
+
   );
 }
 

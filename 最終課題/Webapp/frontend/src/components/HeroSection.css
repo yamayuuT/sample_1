@@ -7,6 +7,8 @@
     overflow: hidden;
 }
 
+
+
 .background-video {
     position: absolute;
     top: 0;
@@ -26,6 +28,8 @@
     color: white;
     text-align: center;
 }
+
+
 
 .hero h1 {
     font-size: 2.5rem;
